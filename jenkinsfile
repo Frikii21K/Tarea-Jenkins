@@ -1,20 +1,23 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'docker-compose build'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'docker-compose run --rm app bundle exec rspec'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'docker-compose up -d'
-            }
-        }
+  agent any
+
+  stages {
+    stage('Build Docker images') {
+      steps {
+        sh 'docker-compose build'
+      }
     }
+    stage('Start services') {
+      steps {
+        sh 'docker-compose up -d'
+      }
+    }
+    // Other stages...
+  }
+
+  post {
+    always {
+      sh 'docker-compose down'
+    }
+  }
 }
