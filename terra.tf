@@ -19,7 +19,7 @@ data "digitalocean_ssh_key" "anyery" {
 
 resource "digitalocean_droplet" "anyery" {
   image  = "ubuntu-20-04-x64"
-  name   = "TerraTest"
+  name   = "TerraJenkins"
   region = "nyc1"
   size   = "s-1vcpu-1gb"
   ssh_keys = [
